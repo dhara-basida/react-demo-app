@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import './GenreSelect.css'; // Import the CSS file
+import './GenreSelect.css'; 
 
 
 function GenreSelect({ genres, selectedGenre, onSelect }) {

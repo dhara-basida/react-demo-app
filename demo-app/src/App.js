@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 
 function App() {
 
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState(['Titanic']);
 
   const [selectedGenre, setSelectedGenre] = useState('ALL');
   const genres = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
@@ -18,14 +18,13 @@ function App() {
 
   const handleSearch = (query) => {
     setSearchResults(query);
-    console.log(`Searching for: ${query}`);
   };
 
   return (
     <div className="App">
       <Counter initialValue={10} />
 
-      <SearchForm initialSearchQuery='Titanic' searchResults={searchResults} onSearch={handleSearch} />
+      <SearchForm initialSearchQuery={searchResults} searchResults={searchResults} onSearch={handleSearch} />
 
       <GenreSelect genres={genres} selectedGenre={selectedGenre} onSelect={handleGenreSelect} />
       

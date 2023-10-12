@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../genre-select/GenreSelect.css';
+import './SearchForm.css';
 
 function SearchForm({ initialSearchQuery, onSearch }) {
 
@@ -9,15 +9,13 @@ function SearchForm({ initialSearchQuery, onSearch }) {
         setSearchQuery(e.target.value);
     };
 
-    const handleKeyPress = (i) => {
-        if (i.key = 'Enter') {
-            console.log('handleKeyPress' + searchQuery);
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
             onSearch(searchQuery);
         }
     };
 
     const handleSearch = () => {
-        console.log('handleSearch' + searchQuery);
         onSearch(searchQuery);
     }
 
