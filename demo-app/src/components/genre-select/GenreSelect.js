@@ -1,4 +1,4 @@
-import './GenreSelect.css'; 
+import './GenreSelect.css';
 
 
 function GenreSelect({ genres, selectedGenre, onSelect }) {

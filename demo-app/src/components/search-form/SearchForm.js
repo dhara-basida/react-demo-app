@@ -1,30 +1,29 @@
-import React, { useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import './SearchForm.css';
 
 function SearchForm({ initialSearchQuery, onSearch }) {
 
-    const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
-
-    const handleInputChange = (e) => {
-        setSearchQuery(e.target.value);
-    };
+    const inputRef = useRef(null);
+    useEffect(() => {
+        inputRef.current.value = initialSearchQuery;
+    }, [initialSearchQuery])
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
-            onSearch(searchQuery);
+            e.preventDefault();
+            onSearch(inputRef.current.value);
         }
     };
 
     const handleSearch = () => {
-        onSearch(searchQuery);
+        onSearch(inputRef.current.value);
     }
 
     return (<div className="search-container">
         <input
             type="text"
             placeholder="What do you want to watch?"
-            value={searchQuery}
-            onChange={handleInputChange}
+            ref={inputRef}
             onKeyUp={handleKeyPress}
         />
         <button onClick={handleSearch}>Search</button>
