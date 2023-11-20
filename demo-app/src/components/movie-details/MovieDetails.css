@@ -1,0 +1,28 @@
+/* MovieDetails.css */
+
+.movie-details-container {
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+    margin: 0 auto;
+    background: #232323;
+    padding: 35px 60px 30px;
+    top :39px;
+    left: 58px;
+}
+
+.movie-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    color:red;
+}
+
+.movie-details-info {
+    display: flex;
+}
+
+.movie-details {
+    flex-grow: 1;
+    color:white;
+}

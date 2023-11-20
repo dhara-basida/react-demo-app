@@ -1,0 +1,34 @@
+/* MovieTile.css */
+
+.movie-info {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    position: relative;
+    width: 323px;
+    background-color: black;
+    padding:15px;
+}
+
+.movie-details {
+    padding: 5px;
+}
+
+.menu-list{
+    list-style-type: none;
+    background-color:black;
+    /* width:190px;
+    height:111px;
+    top: 611px;
+    left: 610px; */
+}
+
+.context-menu,.menu-list {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.context-menu-button {
+    border-radius: 50%;
+}
