@@ -7,23 +7,21 @@
     position: relative;
     width: 323px;
     background-color: black;
-    padding:15px;
+    padding: 15px;
+    row-gap: 8px;
 }
 
 .movie-details {
     padding: 5px;
 }
 
-.menu-list{
+.menu-list {
     list-style-type: none;
-    background-color:black;
-    /* width:190px;
-    height:111px;
-    top: 611px;
-    left: 610px; */
+    background-color: black;
 }
 
-.context-menu,.menu-list {
+.context-menu,
+.menu-list {
     position: absolute;
     top: 16px;
     right: 16px;
@@ -31,4 +29,52 @@
 
 .context-menu-button {
     border-radius: 50%;
+}
+
+.movie-image {
+    width: 323px;
+    height: 455px;
+}
+
+.movie-titleLine {
+    display: flex;
+    justify-content: space-between;
+}
+
+.movie-releaseYear {
+    width: 66px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    border: 1px solid #979797;
+    color: #FFF;
+    text-align: center;
+    font-family: Montserrat, Serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 26px;
+    opacity: 0.7;
+    margin: 0;
+}
+
+.movie-title {
+    color: #FFF;
+    font-family: Montserrat, Serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 26px;
+    opacity: 0.7;
+    margin: 0;
+}
+
+.movie-genres {
+    width: 323px;
+    color: #FFF;
+    font-family: Montserrat, Serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    opacity: 0.5;
 }

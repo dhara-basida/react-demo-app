@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import './MovieTile.css';
 
 const MovieTile = ({ movieInfo, onTileClick, onEditClick, onDeleteClick }) => {
-  //  const { imageUrl, name, releaseYear, genres } = movieInfo;
   const [isContextMenuOpen, setContextMenuOpen] = useState(false);
 
 
@@ -44,19 +43,17 @@ const MovieTile = ({ movieInfo, onTileClick, onEditClick, onDeleteClick }) => {
 
   const { imageUrl, name, releaseYear, genres } = movieInfo;
 
-
   return (
     <div className="container" onClick={handleTileClick}>
-      <div className="movie-info">
-        <img src={imageUrl} alt={name} className="movie-image" />
-        <div className="movie-details">
-          <h3>{name}</h3>
-          <p>{`Release Year: ${releaseYear}`}</p>
-          <p>{`${genres.join(', ')}`}</p>
+      <div className="movie-image"><img src={imageUrl} alt={name} width={323} heigh={455} /></div>
+      <div className="movie-details">
+        <div className="movie-titleLine">
+          <h3 className="movie-title">{name}</h3>
+          <p className="movie-releaseYear">{releaseYear}</p>
         </div>
-        {contextMenu()}
+        <p className="movie-genres">{`${genres.join(', ')}`}</p>
       </div>
-      {/* {contextMenu()} */}
+      {contextMenu()}
     </div>
   );
 };

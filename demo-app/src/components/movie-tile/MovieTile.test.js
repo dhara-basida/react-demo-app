@@ -16,7 +16,7 @@ test('renders MovieTile with required props', () => {
   
   // Ensure the movie details are displayed
   expect(getByText('Sample Movie')).toBeInTheDocument();
-  expect(getByText('Release Year: 2022')).toBeInTheDocument();
+  expect(getByText('2022')).toBeInTheDocument();
   expect(getByText('HORROR, CRIME')).toBeInTheDocument();
   
   // Ensure the image is rendered with alt text

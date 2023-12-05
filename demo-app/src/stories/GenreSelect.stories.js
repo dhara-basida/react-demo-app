@@ -6,21 +6,11 @@ export default {
     component: GenreSelect
 }
 
-// export const CustomSelectedGenre = () => (
-//     <GenreSelect
-//         genres={['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME']}
-//         selectedGenre="COMEDY"
-//         onSelect={(genre) => {
-//             console.log(`Selected genre: ${genre}`);
-//         }}
-//     />);
-
-export const Basic = (args) => <GenreSelect {...args} />;
+export const Basic = (args) => {
+    return <GenreSelect {...args} selectedGenre={args.selectedGenre} />
+}
 Basic.args = {
-    genres:  ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'],
+    genres: ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'],
     selectedGenre: "COMEDY",
-    onSelect: genre => {
-        console.log(`Selected genre: ${genre}`);
-    }
 }
 

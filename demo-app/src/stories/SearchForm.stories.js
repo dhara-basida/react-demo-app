@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SearchForm from '../components/search-form/SearchForm';
 
 export default {
@@ -6,18 +6,14 @@ export default {
   component: SearchForm
 }
 
-// export const WithInitialQuery = () => {
-//   args: {
-//     initialSearchQuery: 'Titanic';
-//     onSearch : (query) => {
-//   console.log(`Initial search query: ${query}`);
-
-// }
-//     }}
-
-export const Basic = (args) => <SearchForm {...args} />;
+export const Basic = (args) => {
+  const [initialSearchQuery, setInitialSearchQuery] = useState(args.initialSearchQuery)
+  const handleOnSearch = (value) => {
+    console.log('onSearch value', value);
+    setInitialSearchQuery(value);
+  };
+  return <SearchForm initialSearchQuery={initialSearchQuery} onSearch={handleOnSearch} />
+}
 Basic.args = {
-  initialSearchQuery: 'Titanic', onSearch: (query) => {
-    console.log(`Initial search query: ${query}`)
-  }
-};
+  initialSearchQuery: 'Titanic',
+}
