@@ -1,0 +1,15 @@
+/* SortControl.css */
+
+.sort-control {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+label {
+    margin-right: 10px;
+}
+
+select {
+    padding: 5px;
+}

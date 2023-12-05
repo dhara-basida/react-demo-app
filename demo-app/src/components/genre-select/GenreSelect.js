@@ -1,15 +1,10 @@
 import './GenreSelect.css';
+import React, { useState } from 'react';
 
 
-function GenreSelect({ genres, selectedGenre, onSelect }) {
+function GenreSelect({ genres, selectedGenre }) {
 
-  const moviePosters = [
-    'https://via.placeholder.com/200x300?text=Movie1',
-    'https://via.placeholder.com/200x300?text=Movie2',
-    'https://via.placeholder.com/200x300?text=Movie3',
-    'https://via.placeholder.com/200x300?text=Movie4',
-    'https://via.placeholder.com/200x300?text=Movie5',
-  ];
+  const [selectGenre, setSelectGenre] = useState(selectedGenre)
 
   return (
     <div className="genre-background">
@@ -17,20 +12,14 @@ function GenreSelect({ genres, selectedGenre, onSelect }) {
         {genres.map((genre) => (
           <li key={genre}>
             <button
-              className={genre === selectedGenre ? 'selected-button' : 'genre-button'}
-              onClick={() => onSelect(genre)}
-            >
+              className={genre === selectGenre ? 'selected-button' : 'genre-button'}
+              onClick={() => setSelectGenre(genre)}>
               {genre}
             </button>
           </li>
         ))}
       </ul>
 
-      <div >
-        {moviePosters.map((poster, index) => (
-          <img key={index} src={poster} alt={`Movie Poster ${index + 1}`} className="movie-poster" />
-        ))}
-      </div>
     </div>
   );
 }

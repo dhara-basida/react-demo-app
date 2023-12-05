@@ -1,0 +1,8 @@
+.movie-list-container {
+    flex-wrap: wrap;
+}
+
+.movie-container {
+    display: flex;
+    color: white;
+}
