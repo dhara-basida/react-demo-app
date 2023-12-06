@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GenreSelect from '../components/genre-select/GenreSelect';
 
 export default {
@@ -7,7 +7,8 @@ export default {
 }
 
 export const Basic = (args) => {
-    return <GenreSelect {...args} selectedGenre={args.selectedGenre} />
+    const [selectedGenre, setSelectedGenre] = useState(args.selectedGenre)
+    return <GenreSelect {...args} selectedGenre={selectedGenre} onSelect={setSelectedGenre} />
 }
 Basic.args = {
     genres: ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'],

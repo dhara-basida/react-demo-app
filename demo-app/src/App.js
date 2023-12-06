@@ -14,6 +14,10 @@ function App() {
   const [selectedGenre, setSelectedGenre] = useState('ALL');
   const genres = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
 
+  const handleGenreSelect = (genre) => {
+    setSelectedGenre(genre);
+  };
+
   const handleSearch = (query) => {
     setSearchResults(query);
   };
@@ -25,10 +29,9 @@ function App() {
 
       <SearchForm initialSearchQuery={searchResults} searchResults={searchResults} onSearch={handleSearch} />
 
-      <GenreSelect genres={genres} selectedGenre={selectedGenre} />
+      <GenreSelect genres={genres} selectedGenre={selectedGenre} onSelect={handleGenreSelect} />
 
-      <p>Search query: <b>{searchResults}</b></p>{/*  temporary added to verify the selected item */}
-      <MovieList />
+      <p>Selected Genre: <b> {selectedGenre}</b> Search query: <b>{searchResults}</b></p>{/*  temporary added to verify the selected item */}      <MovieList />
     </div>
   );
 }

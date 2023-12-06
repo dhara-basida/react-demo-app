@@ -1,10 +1,6 @@
 import './GenreSelect.css';
-import React, { useState } from 'react';
 
-
-function GenreSelect({ genres, selectedGenre }) {
-
-  const [selectGenre, setSelectGenre] = useState(selectedGenre)
+function GenreSelect({ genres, selectedGenre, onSelect }) {
 
   return (
     <div className="genre-background">
@@ -12,8 +8,8 @@ function GenreSelect({ genres, selectedGenre }) {
         {genres.map((genre) => (
           <li key={genre}>
             <button
-              className={genre === selectGenre ? 'selected-button' : 'genre-button'}
-              onClick={() => setSelectGenre(genre)}>
+              className={genre === selectedGenre ? 'selected-button' : 'genre-button'}
+              onClick={() => onSelect(genre)}>
               {genre}
             </button>
           </li>
