@@ -1,12 +1,9 @@
 .movie-form-container {
-    width: 976px;
-    height: 917px;
     background-color: #232323;
     display: flex;
     padding: 60px;
     gap: 30px;
     flex-direction: column;
-    background: #232323;
 }
 
 .movie-form-row {
@@ -22,7 +19,7 @@
 }
 
 .movie-form-label {
-    opacity: 0.8px;
+    opacity: 0.8;
     color: #F65261;
     font-family: Montserrat;
     font-size: 16px;
@@ -37,7 +34,7 @@
 .movie-form-left-input {
     width: 525px;
     height: 57px;
-    opacity: 0.8px;
+    opacity: 0.8;
     background: #323232F2;
     color: #FFF;
     border-radius: 4px;
@@ -46,7 +43,7 @@
 .movie-form-right-input {
     width: 301px;
     height: 57px;
-    opacity: 0.8px;
+    opacity: 0.8;
     color: #FFF;
     background: #323232F2;
     border-radius: 4px;
@@ -55,7 +52,7 @@
 .movie-form-textarea {
     width: 859px;
     height: 197px;
-    opacity: 0.8px;
+    opacity: 0.8;
     background: #323232F2;
 }
 

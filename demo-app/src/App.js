@@ -7,6 +7,8 @@ import MovieDetails from './components/movie-details/MovieDetails';
 import MovieList from './components/movie-list/MovieList';
 import MovieForm from './components/movie-form/MovieForm';
 import ModalDialog from './components/modal-dialog/ModalDialog';
+import Dialog from './components/modal-dialog/Dialog';
+import DeleteMovie from './components/delete-movie/DeleteMovie';
 
 function App() {
 
@@ -17,6 +19,9 @@ function App() {
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const [visible, setvisible] = useState(false);
+  const [modalComponent, setModalComponent] = useState({ title: '', children: null });
 
   const handleGenreSelect = (genre) => {
     setSelectedGenre(genre);
@@ -50,28 +55,89 @@ function App() {
     closeDialog();
   };
 
+  const addMovieHandler = () => {
+    setModalComponent({ title: 'ADD MOVIE', children: <MovieForm /> })
+    setvisible(true);
+  };
+
+  const [isDialogOpen1, setIsDialogOpen1] = useState(false);
+
+  const handleOpenDialog1 = () => {
+    setIsDialogOpen1(true);
+  };
+
+  const handleCloseDialog1 = () => {
+    setIsDialogOpen1(false);
+  };
+
+  const addMovieHandler1 = () => {
+    setModalComponent({ title: 'ADD MOVIE', children: <MovieForm onSubmit={handleFormSubmit} /> })
+    setvisible(true);
+  };
+
+  const movieInfo = {
+    imageUrl: 'https://picsum.photos/seed/picsum/200/300',
+    name: 'Titanic',
+    releaseYear: 2021,
+    genres: ['DOCUMENTARY', 'COMEDY'],
+  };
+
+  const movie = {
+    imageUrl: 'https://picsum.photos/seed/picsum/200/300',
+    name: 'Universe',
+    releaseYear: 2022,
+    genres: ['DOCUMENTARY', 'HORROR'],
+  };
+
+  const movies = [
+    movie, movieInfo
+  ];
+
+
+  const editMovieHandler = (e) => {
+    e.stopPropogation()
+    setModalComponent({
+      title: 'EDIT MOVIE',
+      children: <MovieForm initialMovieInfo={movie} onSubmit={handleFormSubmit} />
+    })
+    setvisible(true);
+  };
+
+  const deleteMovieHandler = (e) => {
+    e.stopPropogation()
+    setModalComponent({
+      title: 'Delete MOVIE',
+      children: <DeleteMovie />
+    })
+    setvisible(true);
+  }
+
+
   return (
     <div className="App">
       <div>
-        <button onClick={() => openDialog()}>Add Movie</button>
-        {isDialogOpen && (
-          <ModalDialog title={selectedMovie ? 'Edit Movie' : 'Add Movie'} onClose={closeDialog}>
-            {selectedMovie ? (
-              <div>
-                <p>Are you sure you want to delete this movie?</p>
-                <button onClick={handleDeleteConfirm}>Delete</button>
-              </div>
-            ) : (
-              // Content for the movie form
-              <MovieForm initialMovieInfo={selectedMovie} onSubmit={handleFormSubmit} />
-            )}
-          </ModalDialog>
-        )}
+        <button onClick={addMovieHandler1}>Add Movie</button>
+        {/* <ModalDialog title="Add Movie" children={<MovieForm onSubmit={handleFormSubmit} />} onClose={() => false} /> */}
       </div>
 
-      <MovieForm onSubmit={handleFormSubmit} />
+      {
+        visible && <ModalDialog title={modalComponent.title} onClose={() => setvisible(false)}>
+          {modalComponent.children}
+        </ModalDialog>
+      }
 
-      <MovieDetails movieDetailInfo={{ imageUrl: 'https://picsum.photos/seed/picsum/200/300', name: 'Titanic', releaseYear: 2022, rating: 8.5, duration: '2h 30m', description: 'It was nice' }} />
+      <button onClick={handleOpenDialog1}>Open Dialog</button>
+
+      {isDialogOpen1 && (
+        <Dialog title="My Dialog" onClose={handleCloseDialog1}>
+          <MovieForm onSubmit={handleFormSubmit} />
+          <p>This is the content of the dialog.</p>
+        </Dialog>
+      )}
+
+      {/* <MovieForm onSubmit={handleFormSubmit} /> */}
+
+      {/* <MovieDetails movieDetailInfo={{ imageUrl: 'https://picsum.photos/seed/picsum/200/300', name: 'Titanic', releaseYear: 2022, rating: 8.5, duration: '2h 30m', description: 'It was nice' }} /> */}
       {/* Enable  below Counter component for testing purpose
       <Counter initialValue={10} /> */}
 
@@ -80,7 +146,7 @@ function App() {
       <GenreSelect genres={genres} selectedGenre={selectedGenre} onSelect={handleGenreSelect} />
 
       {/* <p>Selected Genre: <b> {selectedGenre}</b> Search query: <b>{searchResults}</b></p> temporary added to verify the selected item */}
-      <MovieList />
+      <MovieList movies={movies}  handlers={{ editMovieHandler, deleteMovieHandler }} />
     </div>
   );
 }

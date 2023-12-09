@@ -19,7 +19,7 @@ function MovieList() {
     };
 
     const movies = [
-        movieInfo1,movieInfo
+        movieInfo1, movieInfo
     ];
 
     return (
