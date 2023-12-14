@@ -7,6 +7,14 @@ import ModalDialog from './ModalDialog';
 // Mock child component
 const MockChildComponent = () => <div data-testid="mock-child">Child Component</div>;
 
+jest.mock('focus-trap-react', () => {
+    return (props) => (
+        <div data-testid="FocusTrap">
+            {props.children}
+        </div>
+    );
+});
+
 describe('ModalDialog component', () => {
     const mockOnClose = jest.fn();
 

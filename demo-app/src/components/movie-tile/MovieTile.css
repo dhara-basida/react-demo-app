@@ -20,18 +20,23 @@
     background-color: black;
 }
 
-.context-menu,
+.context-menu {
+    position: absolute;
+    top: 65px;
+    right: 65px;
+}
+
 .menu-list {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    width:190px;
-    li{
-        &:hover{
-            background-color: red;
-        }
-    }
+    top: 24px;
+    right: 0;
+    width: 190px;
+    padding: 0;
+    margin: 0;
+}
 
+.menu-list>li:hover {
+    background-color: red;
 }
 
 .context-menu-button {

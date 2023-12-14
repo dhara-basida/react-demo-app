@@ -24,7 +24,7 @@ const ModalDialog = ({ title, children, onClose }) => {
 
     return (<Portal node={modalRoot}>
         <FocusTrap>
-            <div className="dialog-overlay" onClick={onClose}>
+            <div data-testid="dialog-overlay" className="dialog-overlay" onClick={onClose}>
                 <div className="dialog-content" onClick={(e) => e.stopPropagation()}>
                     <div className="dialog-header">
                         <img src="image/Close-Button.svg" className="close-button" alt="close" onClick={onClose} />

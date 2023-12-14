@@ -2,6 +2,7 @@
 
 import React from 'react';
 import MovieTile from '../movie-tile/MovieTile';
+import './MovieList.css'
 
 function MovieList(props) {
   const { movies, editMovieHandler, deleteMovieHandler } = props;
