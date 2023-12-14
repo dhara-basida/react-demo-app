@@ -3,21 +3,27 @@ import React, { useState, useEffect } from 'react';
 import './MovieForm.css';
 
 const MovieForm = ({ initialMovieInfo, onSubmit }) => {
+    console.log(initialMovieInfo);
     const [formData, setFormData] = useState({
-        title: initialMovieInfo?.title || '',
+        title: initialMovieInfo?.name || '',
         releaseDate: initialMovieInfo?.releaseDate || '',
         imageUrl: initialMovieInfo?.imageUrl || '',
         rating: initialMovieInfo?.rating || '',
-        genre: initialMovieInfo?.genre || '',
+        genre: initialMovieInfo?.genres || [],
         runtime: initialMovieInfo?.runtime || '',
-        description: initialMovieInfo?.runtime || ''
+        description: initialMovieInfo?.description || ''
     });
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
+        const { name, options, selectedOptions, type, value } = event.target;
+        const updatedValue =
+            type === 'select-multiple'
+                ? Array.from(selectedOptions, (option) => option.value)
+                : value;
+
         setFormData((prevData) => ({
             ...prevData,
-            [name]: value,
+            [name]: updatedValue,
         }));
     };
 
@@ -26,15 +32,29 @@ const MovieForm = ({ initialMovieInfo, onSubmit }) => {
         onSubmit(formData);
     };
 
-    useEffect(() => {
+    const handleReset = (event) => {
+        event.preventDefault();
         setFormData({
-            title: initialMovieInfo?.title || '',
+            title: initialMovieInfo?.name || '',
             releaseDate: initialMovieInfo?.releaseDate || '',
             imageUrl: initialMovieInfo?.imageUrl || '',
             rating: initialMovieInfo?.rating || '',
-            genre: initialMovieInfo?.genre || '',
+            genre: initialMovieInfo?.genres || '',
             runtime: initialMovieInfo?.runtime || '',
-            description: initialMovieInfo?.runtime || ''
+            description: initialMovieInfo?.description || ''
+        });
+    };
+
+
+    useEffect(() => {
+        setFormData({
+            title: initialMovieInfo?.name || '',
+            releaseDate: initialMovieInfo?.releaseDate || '',
+            imageUrl: initialMovieInfo?.imageUrl || '',
+            rating: initialMovieInfo?.rating || '',
+            genre: initialMovieInfo?.genres || [],
+            runtime: initialMovieInfo?.runtime || '',
+            description: initialMovieInfo?.description || ''
         });
     }, [initialMovieInfo]);
 
@@ -53,38 +73,40 @@ const MovieForm = ({ initialMovieInfo, onSubmit }) => {
         <div className="movie-form-row">
             <label className="movie-form-label" >
                 MOVIE URL:
-                <input className="movie-form-left-input" type="text" name="imageUrl" value={formData.imageUrl} placeholder="https://" />
+                <input className="movie-form-left-input" type="text" name="imageUrl" value={formData.imageUrl} onChange={handleChange} placeholder="https://" />
             </label>
             <label className="movie-form-label" >
                 RATING:
-                <input className="movie-form-right-input" type="text" name="rating" value={formData.rating} />
+                <input className="movie-form-right-input" type="text" name="rating" value={formData.rating} onChange={handleChange} />
             </label>
         </div>
         <div className="movie-form-row">
             <label className="movie-form-label" >
                 GENRE:
-                <select className="movie-form-left-input" id="genre" name="select genre" value={formData.genre} onChange={handleChange} >
-                    <option value="all">ALL</option>
-                    <option value="documentary">DOCUMENTARY</option>
-                    <option value="comedy">COMEDY</option>
-                    <option value="horror">HORROR</option>
-                    <option value="crime">CRIME</option>
+                <select className="movie-form-left-input" multiple id="genre" name="genre" value={formData.genre} onChange={handleChange} >
+                    <option value="ALL">ALL</option>
+                    <option value="DOCUMENTARY">DOCUMENTARY</option>
+                    <option value="COMEDY">COMEDY</option>
+                    <option value="HORROR">HORROR</option>
+                    <option value="CRIME">CRIME</option>
 
                 </select>
             </label>
             <label className="movie-form-label" >
                 RUNTIME:
-                <input className="movie-form-right-input" type="text" name="runtime" value={formData.runtime} />
+                <input className="movie-form-right-input" type="text" name="runtime"
+                    value={formData.runtime} onChange={handleChange} />
             </label>
         </div>
         <div className="movie-form-row">
             <label className="movie-form-label" >
                 OVERVIEW:
-                <textarea className="movie-form-textarea" type="text" row="5" name="description" value={formData.description} />
+                <textarea className="movie-form-textarea" type="text" rows="5" name="description"
+                    value={formData.description} onChange={handleChange} />
             </label>
         </div>
-        <div className="movie-form-row">
-            <button className="movie-form-reset-button" type="submit">Reset</button>
+        <div className="movie-form-row btn-div">
+            <button className="movie-form-reset-button" type="button" onClick={handleReset}>Reset</button>
             <button className="movie-form-submit-button" type="submit">Submit</button>
         </div>
     </form>

@@ -7,7 +7,6 @@ import MovieDetails from './components/movie-details/MovieDetails';
 import MovieList from './components/movie-list/MovieList';
 import MovieForm from './components/movie-form/MovieForm';
 import ModalDialog from './components/modal-dialog/ModalDialog';
-import Dialog from './components/modal-dialog/Dialog';
 import DeleteMovie from './components/delete-movie/DeleteMovie';
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
   const [selectedGenre, setSelectedGenre] = useState('ALL');
   const genres = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   const [visible, setvisible] = useState(false);
@@ -31,14 +29,9 @@ function App() {
     setSearchResults(query);
   };
 
-  const openDialog = (movie) => {
-    setSelectedMovie(movie);
-    setIsDialogOpen(true);
-  };
-
   const closeDialog = () => {
     setSelectedMovie(null);
-    setIsDialogOpen(false);
+    setvisible(false);
   };
 
   const handleFormSubmit = (formData) => {
@@ -46,18 +39,9 @@ function App() {
     closeDialog();
   };
 
-  const handleDeleteClick = (movie) => {
-    openDialog(movie);
-  };
-
   const handleDeleteConfirm = () => {
-    console.log('Movie deleted:', selectedMovie);
+    //console.log('Movie deleted:', selectedMovie);
     closeDialog();
-  };
-
-  const addMovieHandler = () => {
-    setModalComponent({ title: 'ADD MOVIE', children: <MovieForm /> })
-    setvisible(true);
   };
 
   const [isDialogOpen1, setIsDialogOpen1] = useState(false);
@@ -76,38 +60,67 @@ function App() {
   };
 
   const movieInfo = {
-    imageUrl: 'https://picsum.photos/seed/picsum/200/300',
-    name: 'Titanic',
-    releaseYear: 2021,
+    imageUrl: 'image/Pulp Fiction.png',
+    name: 'Pulp Fiction',
+    releaseYear: 2024,
+    releaseDate: '2000-05-23',
+    rating: 4,
     genres: ['DOCUMENTARY', 'COMEDY'],
+    runtime: '3h 30m',
+    description: 'It was really a nice movie'
   };
 
-  const movie = {
-    imageUrl: 'https://picsum.photos/seed/picsum/200/300',
-    name: 'Universe',
-    releaseYear: 2022,
+  const movieInfo2 = {
+    imageUrl: 'image/Bohemian Rhapsody.png',
+    name: 'Bohemian Rhapsody',
+    releaseYear: 2023,
+    releaseDate: '2023-11-10',
+    rating: 5,
     genres: ['DOCUMENTARY', 'HORROR'],
+    runtime: '4h 30m',
+    description: 'It was a dramatic movie'
+  };
+
+  const movieInfo3 = {
+    imageUrl: 'image/Kill Bill Vol2.png',
+    name: 'Kill Bill: Vol2',
+    releaseYear: 1994,
+    releaseDate: '2000-05-23',
+    rating: 4,
+    genres: ['DOCUMENTARY', 'COMEDY'],
+    runtime: '3h 30m',
+    description: 'It was really a nice movie'
+  };
+
+  const movieInfo4 = {
+    imageUrl: 'image/Avengers War of Infinity.png',
+    name: 'Avengers: War of Infinity',
+    releaseYear: 2024,
+    releaseDate: '2023-11-10',
+    rating: 5,
+    genres: ['DOCUMENTARY', 'HORROR'],
+    runtime: '4h 30m',
+    description: 'It was a dramatic movie'
   };
 
   const movies = [
-    movie, movieInfo
+    movieInfo, movieInfo2, movieInfo3, movieInfo4
   ];
 
 
-  const editMovieHandler = (e) => {
-    e.stopPropogation()
+  const editMovieHandler = (activeMovie) => {
     setModalComponent({
       title: 'EDIT MOVIE',
-      children: <MovieForm initialMovieInfo={movie} onSubmit={handleFormSubmit} />
+      children: <MovieForm initialMovieInfo={activeMovie} onSubmit={handleFormSubmit} />
     })
     setvisible(true);
   };
 
-  const deleteMovieHandler = (e) => {
-    e.stopPropogation()
+  const deleteMovieHandler = (activeMovie) => {
+    // e.stopPropogation()
     setModalComponent({
-      title: 'Delete MOVIE',
-      children: <DeleteMovie />
+      title: 'DELETE MOVIE',
+      children: <DeleteMovie onDelete={() => handleDeleteConfirm()} />
     })
     setvisible(true);
   }
@@ -117,7 +130,6 @@ function App() {
     <div className="App">
       <div>
         <button onClick={addMovieHandler1}>Add Movie</button>
-        {/* <ModalDialog title="Add Movie" children={<MovieForm onSubmit={handleFormSubmit} />} onClose={() => false} /> */}
       </div>
 
       {
@@ -125,17 +137,6 @@ function App() {
           {modalComponent.children}
         </ModalDialog>
       }
-
-      <button onClick={handleOpenDialog1}>Open Dialog</button>
-
-      {isDialogOpen1 && (
-        <Dialog title="My Dialog" onClose={handleCloseDialog1}>
-          <MovieForm onSubmit={handleFormSubmit} />
-          <p>This is the content of the dialog.</p>
-        </Dialog>
-      )}
-
-      {/* <MovieForm onSubmit={handleFormSubmit} /> */}
 
       {/* <MovieDetails movieDetailInfo={{ imageUrl: 'https://picsum.photos/seed/picsum/200/300', name: 'Titanic', releaseYear: 2022, rating: 8.5, duration: '2h 30m', description: 'It was nice' }} /> */}
       {/* Enable  below Counter component for testing purpose
@@ -146,7 +147,7 @@ function App() {
       <GenreSelect genres={genres} selectedGenre={selectedGenre} onSelect={handleGenreSelect} />
 
       {/* <p>Selected Genre: <b> {selectedGenre}</b> Search query: <b>{searchResults}</b></p> temporary added to verify the selected item */}
-      <MovieList movies={movies}  handlers={{ editMovieHandler, deleteMovieHandler }} />
+      <MovieList movies={movies} editMovieHandler={editMovieHandler} deleteMovieHandler={deleteMovieHandler} />
     </div>
   );
 }

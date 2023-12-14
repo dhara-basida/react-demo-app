@@ -1,15 +1,17 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import './DeleteMovie.css';
 
-const DeleteMovie = () => {
+const DeleteMovie = ({ onDelete }) => {
 
     return (
-        <div>
+        <div className="delete-movie-container">
             <p>
                 Are you sure you want to delete this movie?
             </p>
-            <button>Confirm</button>
-
+            <div>
+            <button type="button" className="delete-movie-confirm-button" onClick={onDelete}>Confirm</button>
+            </div>
 
         </div>);
 }

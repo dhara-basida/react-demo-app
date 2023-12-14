@@ -7,7 +7,7 @@
     position: relative;
     width: 323px;
     background-color: black;
-    padding: 15px;
+    padding: 49px;
     row-gap: 8px;
 }
 
@@ -25,6 +25,13 @@
     position: absolute;
     top: 16px;
     right: 16px;
+    width:190px;
+    li{
+        &:hover{
+            background-color: red;
+        }
+    }
+
 }
 
 .context-menu-button {

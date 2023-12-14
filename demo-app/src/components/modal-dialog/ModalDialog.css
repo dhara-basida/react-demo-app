@@ -1,14 +1,23 @@
 /* Add your own styles based on your design */
 .dialog-overlay {
-    width: 976px;
-    height: 917px;
     flex-shrink: 0;
     background: #232323;
     display: flex;
+    position: absolute;
+    z-index: 999;
+    width: 976px;
+    /* height: 917px; */
+    top: 229px;
+    left: 168px;
 }
 
 .dialog-content {
-    background: #fff;
+    font-family: Montserrat;
+    font-size: 40px;
+    font-weight: 300;
+    line-height: 49px;
+    letter-spacing: 1px;
+    text-align: left;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -31,7 +40,9 @@
 }
 
 .close-button {
-    width: 20.765px;
-    height: 20.765px;
+    /* width: 20.765px;
+    height: 20.765px; */
     flex-shrink: 0;
+    cursor: pointer;
+    float: right;
 }

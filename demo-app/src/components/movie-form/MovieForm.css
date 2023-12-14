@@ -29,6 +29,7 @@
     text-align: left;
     display: flex;
     flex-direction: column;
+    margin-top: 18px;
 }
 
 .movie-form-left-input {
@@ -54,6 +55,12 @@
     height: 197px;
     opacity: 0.8;
     background: #323232F2;
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .movie-form-submit-button {
@@ -86,4 +93,9 @@
     font-weight: 500;
     line-height: normal;
     text-transform: uppercase;
+}
+
+.btn-div {
+    float: right;
+    margin-top: 20px;
 }

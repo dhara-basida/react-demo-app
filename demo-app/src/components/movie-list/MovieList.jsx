@@ -4,7 +4,7 @@ import React from 'react';
 import MovieTile from '../movie-tile/MovieTile';
 
 function MovieList(props) {
-  const { movies, handlers } = props;
+  const { movies, editMovieHandler, deleteMovieHandler } = props;
 
   return (
     <div className="movie-list-container">
@@ -15,15 +15,16 @@ function MovieList(props) {
             movieInfo={movie}
             onTileClick={(selectedMovie) => {
               console.log(`Selected movie: ${selectedMovie.name}`);
-             // onSelectCallback(selectedMovie); // Call the onSelectCallback if needed
             }}
-            onEditClick={(selectedMovie) => {
-              console.log(`Edit movie: ${selectedMovie.name}`);
-              handlers.editMovieHandler(selectedMovie); // Call the editMovieHandler
+            onEditClick={(e) => {
+              e.preventDefault();
+              console.log(`Edit movie: ${movie.name}`);
+              editMovieHandler(movie);
             }}
-            onDeleteClick={(selectedMovie) => {
-              console.log(`Delete movie: ${selectedMovie.name}`);
-              handlers.deleteMovieHandler(selectedMovie); // Call the deleteMovieHandler
+            onDeleteClick={(e) => {
+              e.preventDefault();
+              console.log(`Delete movie: ${movie.name}`);
+              deleteMovieHandler(movie);
             }}
           />
         ))}
