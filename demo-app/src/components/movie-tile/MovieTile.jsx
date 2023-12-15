@@ -12,8 +12,11 @@ const MovieTile = ({ movieInfo, onTileClick, onEditClick, onDeleteClick }) => {
   };
 
   const handleContextMenuClick = (action) => {
+    console.log('editttt');
+
     setContextMenuOpen(false);
     if (action === 'edit' && onEditClick) {
+      console.log('editttt');
       onEditClick(movieInfo);
     } else if (action === 'delete' && onDeleteClick) {
       onDeleteClick(movieInfo);
@@ -28,13 +31,19 @@ const MovieTile = ({ movieInfo, onTileClick, onEditClick, onDeleteClick }) => {
 
   const contextMenu = () => {
     return <div className="context-menu">
-      <button className="context-menu-button" onClick={toggleContextMenu} onBlur={toggleContextMenu}>
+      <button className="context-menu-button" onClick={toggleContextMenu}>
         <span>&#8942;</span>
       </button>
       {isContextMenuOpen && (
         <ul className="menu-list">
-          <li onClick={() => handleContextMenuClick('edit')}>Edit</li>
-          <li onClick={() => handleContextMenuClick('delete')}>Delete</li>
+          <li onClick={(e) => {
+            setContextMenuOpen(false);
+            onEditClick(e);
+          }}>Edit</li>
+          <li onClick={(e) => {
+            setContextMenuOpen(false);
+            onDeleteClick(e);
+          }}>Delete</li>
         </ul>
       )}
     </div>

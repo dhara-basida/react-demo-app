@@ -1,0 +1,32 @@
+.delete-movie-container {
+    width: 686px;
+    height: 185px;
+    background: #232323;
+    display: flex;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: center;
+    color: #FFF;
+    flex-direction: column;
+}
+
+
+.delete-movie-confirm-button {
+    width: 180px;
+    height: 57px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: #F65261;
+    color: #FFF;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+    float: right;
+}

@@ -1,8 +1,10 @@
 .movie-list-container {
     flex-wrap: wrap;
+    background-color: black;
 }
 
 .movie-container {
     display: flex;
     color: white;
+    justify-content: center;
 }
