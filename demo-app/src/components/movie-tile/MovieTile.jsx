@@ -1,22 +1,18 @@
 
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import './MovieTile.css';
 
 const MovieTile = ({ movieInfo, onTileClick, onEditClick, onDeleteClick }) => {
   const [isContextMenuOpen, setContextMenuOpen] = useState(false);
-
 
   const handleTileClick = () => {
     onTileClick(movieInfo);
   };
 
   const handleContextMenuClick = (action) => {
-    console.log('editttt');
-
     setContextMenuOpen(false);
     if (action === 'edit' && onEditClick) {
-      console.log('editttt');
       onEditClick(movieInfo);
     } else if (action === 'delete' && onDeleteClick) {
       onDeleteClick(movieInfo);
@@ -56,7 +52,9 @@ const MovieTile = ({ movieInfo, onTileClick, onEditClick, onDeleteClick }) => {
     <div className="container" onClick={handleTileClick}>
       <div className="container" onClick={handleTileClick}>
         <div className="movie-info">
-          <div className="movie-image"><img src={imageUrl} alt={name} width={323} heigh={455} /></div>
+          <div className="movie-image">
+            <img src={imageUrl} alt={name} width={323} heigh={455} />
+            </div>
           <div className="movie-details">
             <div className="movie-titleLine">
               <h3 className="movie-title">{name}</h3>

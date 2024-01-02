@@ -1,17 +1,18 @@
-
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './MovieForm.css';
 
+const controller = new AbortController();
 const MovieForm = ({ initialMovieInfo, onSubmit }) => {
-    console.log(initialMovieInfo);
     const [formData, setFormData] = useState({
         title: initialMovieInfo?.name || '',
         releaseDate: initialMovieInfo?.releaseDate || '',
         imageUrl: initialMovieInfo?.imageUrl || '',
         rating: initialMovieInfo?.rating || '',
-        genre: initialMovieInfo?.genres || [],
+        genre: initialMovieInfo?.genres?.map(item => item?.toUpperCase()) || [],
         runtime: initialMovieInfo?.runtime || '',
-        description: initialMovieInfo?.description || ''
+        description: initialMovieInfo?.description || '',
+        id:initialMovieInfo?.id
     });
 
     const handleChange = (event) => {
@@ -30,6 +31,22 @@ const MovieForm = ({ initialMovieInfo, onSubmit }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         onSubmit(formData);
+        controller.abort();
+     const formBody =    {
+                "title": formData?.title,
+                "vote_average": +formData?.rating,
+                "release_date": formData?.releaseDate,
+                "poster_path": formData?.imageUrl,
+                "overview": formData?.description,
+                "runtime": +formData?.runtime,
+                "genres": formData?.genre,
+                "id":formData?.id
+            };
+        if(initialMovieInfo){
+            axios.put('http://localhost:4000/movies', formBody).then(() => { }).catch(() => console.log('Error whiling updating movie'))
+        }else{
+            axios.post('http://localhost:4000/movies', formBody).then(() => { }).catch(() => console.log('Error whiling updating movie'))
+        }
     };
 
     const handleReset = (event) => {
@@ -41,7 +58,8 @@ const MovieForm = ({ initialMovieInfo, onSubmit }) => {
             rating: initialMovieInfo?.rating || '',
             genre: initialMovieInfo?.genres || '',
             runtime: initialMovieInfo?.runtime || '',
-            description: initialMovieInfo?.description || ''
+            description: initialMovieInfo?.description || '',
+            id:initialMovieInfo?.id
         });
     };
 
@@ -52,9 +70,10 @@ const MovieForm = ({ initialMovieInfo, onSubmit }) => {
             releaseDate: initialMovieInfo?.releaseDate || '',
             imageUrl: initialMovieInfo?.imageUrl || '',
             rating: initialMovieInfo?.rating || '',
-            genre: initialMovieInfo?.genres || [],
+            genre: initialMovieInfo?.genres?.map(genre => genre?.toUpperCase()) || [],
             runtime: initialMovieInfo?.runtime || '',
-            description: initialMovieInfo?.description || ''
+            description: initialMovieInfo?.description || '',
+            id:initialMovieInfo?.id
         });
     }, [initialMovieInfo]);
 
@@ -89,7 +108,7 @@ const MovieForm = ({ initialMovieInfo, onSubmit }) => {
                     <option value="COMEDY">COMEDY</option>
                     <option value="HORROR">HORROR</option>
                     <option value="CRIME">CRIME</option>
-
+                    <option value="DRAMA">DRAMA</option>
                 </select>
             </label>
             <label className="movie-form-label" >

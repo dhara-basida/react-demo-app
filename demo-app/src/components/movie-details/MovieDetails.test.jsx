@@ -14,7 +14,7 @@ const sampleMovieDetail = {
 
 // Test Case 1: Render MovieDetails with required props
 test('renders MovieDetails with required props', () => {
-  const { getByText } = render(<MovieDetails movieDetailInfo={sampleMovieDetail} />);
+  const { getByText } = render(<MovieDetails movieDetailInfo={sampleMovieDetail} closeMovieDetails={() => {}} />);
   
   // Ensure the movie details are displayed
   expect(getByText('Sample Movie')).toBeInTheDocument();
