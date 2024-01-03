@@ -8,28 +8,30 @@ import DeleteMovie from '../delete-movie/DeleteMovie';
 import MovieForm from '../movie-form/MovieForm';
 import ModalDialog from '../modal-dialog/ModalDialog';
 import axios from 'axios';
+import { useSearchParams } from 'react-router-dom';
 
 const controller = new AbortController();
-const MovieListPage = () => {
-    const [searchQuery, setSearchQuery] = useState('');
+const MovieListPage = ({ searchQuery }) => {
+    // const [searchQuery, setSearchQuery] = useState('');
+    const [searchParams, setSearchParams] = useSearchParams();
     const [movieList, setMovieList] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
-    const [sortCriterion, setSortCriterion] = useState('release_date');
+    const [sortCriterion, setSortCriterion] = useState(searchParams.get('sort') ? searchParams.get('sort') : 'release_date');
     const [activeGenre, setActiveGenre] = useState(null);
 
     const [visible, setvisible] = useState(false);
-    const [selectedGenre, setSelectedGenre] = useState('ALL');
+    const [selectedGenre, setSelectedGenre] = useState(searchParams.get('genre') ? searchParams.get('genre') : 'ALL');
     const [modalComponent, setModalComponent] = useState({ title: '', children: null });
-   
+
     useEffect(() => {
-       getMovies();
+        getMovies();
     }, [sortCriterion, searchQuery, selectedGenre]);
 
     const getMovies = () => {
         const params = {
             sortBy: sortCriterion,
             sortOrder: 'asc',
-            search:searchQuery,
+            search: searchQuery,
             searchBy: 'title',
             filter: selectedGenre == 'ALL' ? '' : selectedGenre,
             offset: 0,
@@ -56,7 +58,7 @@ const MovieListPage = () => {
                             genres: genres,
                             runtime: runtime,
                             description: description,
-                            id:movie?.id
+                            id: movie?.id
                         };
                         return preparedObject;
                     });
@@ -76,11 +78,15 @@ const MovieListPage = () => {
     }
 
     const handleSearchSubmit = (query) => {
-        setSearchQuery(query);
+        // setSearchQuery(query);
     };
+
 
     const handleGenreSelect = (genre) => {
         setSelectedGenre(genre);
+        const currentSearchParams = new URLSearchParams(searchParams);
+        currentSearchParams.set('genre', genre);
+        setSearchParams(currentSearchParams);
     };
 
     const addMovieHandler1 = () => {
@@ -89,7 +95,10 @@ const MovieListPage = () => {
     };
 
     const handleSetSortCriterion = (sort) => {
+        const currentSearchParams = new URLSearchParams(searchParams);
         setSortCriterion(sort);
+        currentSearchParams.set('sort', sort);
+        setSearchParams(currentSearchParams);
     }
 
     const movieInfo = {
@@ -183,9 +192,9 @@ const MovieListPage = () => {
     return (
         <div>
 
-            <div>
+            {/* <div>
                 <button onClick={addMovieHandler1}>Add Movie</button>
-            </div>
+            </div> */}
 
             {
                 visible && <ModalDialog title={modalComponent.title} onClose={() => setvisible(false)}>
@@ -193,16 +202,16 @@ const MovieListPage = () => {
                 </ModalDialog>
             }
             {/* If movie is not selected than show search bar */}
-            {!selectedMovie && <SearchForm initialSearchQuery={searchQuery} onSearch={handleSearchSubmit} />}
+            {/* {!selectedMovie && <SearchForm initialSearchQuery={searchQuery} onSearch={handleSearchSubmit} />}
 
             <div>
                 {selectedMovie && <MovieDetails movieDetailInfo={selectedMovie} handleSelectedMovie={handleSelectedMovie} closeMovieDetails={closeMovieDetails} />}
-            </div>
+            </div> */}
 
             <GenreSelect genres={genres} selectedGenre={selectedGenre} onSelect={handleGenreSelect} />
             <SortControl currentSelection={sortCriterion} onSortChange={handleSetSortCriterion} />
-            <MovieList movies={movieList} editMovieHandler={editMovieHandler} deleteMovieHandler={deleteMovieHandler} handleSelectedMovie={handleSelectedMovie} />
-
+            {movieList?.length > 0 && <MovieList movies={movieList} editMovieHandler={editMovieHandler} deleteMovieHandler={deleteMovieHandler} handleSelectedMovie={handleSelectedMovie} />}
+            {movieList?.length == 0 && <div class="no-data">No Data Found</div>}
 
         </div>
     )

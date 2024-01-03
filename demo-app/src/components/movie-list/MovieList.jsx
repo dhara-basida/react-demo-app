@@ -19,10 +19,12 @@ function MovieList(props) {
               handleSelectedMovie(selectedMovie);
             }}
             onEditClick={(e) => {
+              e.stopPropagation();
               e.preventDefault();
               editMovieHandler(movie);
             }}
             onDeleteClick={(e) => {
+              e.stopPropagation();
               e.preventDefault();
               deleteMovieHandler(movie);
             }}
