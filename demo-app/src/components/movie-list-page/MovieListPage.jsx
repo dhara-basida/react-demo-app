@@ -101,54 +101,6 @@ const MovieListPage = ({ searchQuery }) => {
         setSearchParams(currentSearchParams);
     }
 
-    const movieInfo = {
-        imageUrl: 'image/Pulp Fiction.png',
-        name: 'Pulp Fiction',
-        releaseYear: 2024,
-        releaseDate: '2000-05-23',
-        rating: 4,
-        genres: ['DOCUMENTARY', 'COMEDY'],
-        runtime: '3h 30m',
-        description: 'It was really a nice movie'
-    };
-
-    const movieInfo2 = {
-        imageUrl: 'image/Bohemian Rhapsody.png',
-        name: 'Bohemian Rhapsody',
-        releaseYear: 2023,
-        releaseDate: '2023-11-10',
-        rating: 5,
-        genres: ['DOCUMENTARY', 'HORROR'],
-        runtime: '4h 30m',
-        description: 'It was a dramatic movie'
-    };
-
-    const movieInfo3 = {
-        imageUrl: 'image/Kill Bill Vol2.png',
-        name: 'Kill Bill: Vol2',
-        releaseYear: 1994,
-        releaseDate: '2000-05-23',
-        rating: 4,
-        genres: ['DOCUMENTARY', 'COMEDY'],
-        runtime: '3h 30m',
-        description: 'It was really a nice movie'
-    };
-
-    const movieInfo4 = {
-        imageUrl: 'image/Avengers War of Infinity.png',
-        name: 'Avengers: War of Infinity',
-        releaseYear: 2024,
-        releaseDate: '2023-11-10',
-        rating: 5,
-        genres: ['DOCUMENTARY', 'HORROR'],
-        runtime: '4h 30m',
-        description: 'It was a dramatic movie'
-    };
-
-    const movies = [
-        movieInfo, movieInfo2, movieInfo3, movieInfo4
-    ];
-
     const closeDialog = () => {
         setSelectedMovie(null);
         setvisible(false);

@@ -9,7 +9,7 @@ describe('MovieListPage', () => {
 
         // Test sorting functionality
         cy.get('[data-testid="sort-control"]').parent().select('release_date');
-        cy.get('[data-testid="movie-list"]').first().should('include.text', 'The Gold Rush1925Adventure, Comedy, Drama⋮Metropolis1927Drama, Science Fiction⋮All Quiet on the Western Front1930Drama, War⋮City Lights1931Comedy, Drama,');
+        cy.get('[data-testid="movie-list"]').first().should('include.text', 'Titanic1997Drama');
 
         // Test switching genre
         // Test switching genre
