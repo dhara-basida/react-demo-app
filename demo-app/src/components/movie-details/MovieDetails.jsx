@@ -29,6 +29,7 @@ const MovieDetails = () => {
     controller.abort();
     axios.get(`http://localhost:4000/movies/${movieId}`)
       .then(function (response) {
+        response = response?.data;
         if (response) {
           const imageUrl = response.poster_path;
           const name = response.title;
