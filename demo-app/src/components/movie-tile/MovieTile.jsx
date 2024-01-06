@@ -63,7 +63,7 @@ const MovieTile = ({ movieInfo, onTileClick, onEditClick, onDeleteClick }) => {
   const { imageUrl, name, releaseYear, genres } = movieInfo;
 
   return (
-    <div className="container">
+    <div className="container" data-testid="movie-list-container">
       <div className="container" onClick={handleTileClick}>
         <div className="movie-info">
           <div className="movie-image">
@@ -71,10 +71,10 @@ const MovieTile = ({ movieInfo, onTileClick, onEditClick, onDeleteClick }) => {
             </div>
           <div className="movie-details">
             <div className="movie-titleLine">
-              <h3 className="movie-title">{name}</h3>
+              <h3 className="movie-title" data-testid="movie-title">{name}</h3>
               <p className="movie-releaseYear">{releaseYear}</p>
             </div>
-            <p className="movie-genres">{`${genres.join(', ')}`}</p>
+            <p className="movie-genres" data-testid="movie-genre">{`${genres.join(', ')}`}</p>
           </div>
           {contextMenu()}
         </div>

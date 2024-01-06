@@ -73,8 +73,9 @@ function SearchForm({ initialSearchQuery, onSearch }) {
                     placeholder="What do you want to watch?"
                     ref={inputRef}
                     onKeyUp={handleKeyPress}
+                    data-testid="search-input"
                 />
-                <button onClick={handleSearch}>Search</button>
+                <button data-testid="search-button" onClick={handleSearch}>Search</button>
             </div>
             <MovieListPage searchQuery={searchQuery} />
         </>
