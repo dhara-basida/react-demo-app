@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './SearchForm.css';
 import MovieListPage from '../movie-list-page/MovieListPage';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import MovieForm from '../movie-form/MovieForm';
 import ModalDialog from '../modal-dialog/ModalDialog';
 
@@ -11,6 +11,8 @@ function SearchForm({ initialSearchQuery, onSearch }) {
     const [modalComponent, setModalComponent] = useState({ title: '', children: null });
     const [visible, setvisible] = useState(false);
     const inputRef = useRef(null);
+    const location = useLocation();
+    const navigate = useNavigate();
     useEffect(() => {
         inputRef.current.value = searchQuery;
     }, [searchQuery])
@@ -46,8 +48,15 @@ function SearchForm({ initialSearchQuery, onSearch }) {
     }
 
     const addMovieHandler1 = () => {
-        setModalComponent({ title: 'ADD MOVIE', children: <MovieForm onSubmit={handleFormSubmit} /> })
-        setvisible(true);
+        const currentSearchParams = new URLSearchParams(searchParams);
+        const queryParams = currentSearchParams.toString();
+        setvisible(false);
+        if (queryParams) {
+            navigate(`new?${queryParams}`);
+        } else {
+            navigate('new');
+        }
+
     };
 
     const closeDialog = () => {
@@ -59,8 +68,9 @@ function SearchForm({ initialSearchQuery, onSearch }) {
     };
     return (
         <>
+         <Outlet /> 
         <div>
-                <button onClick={addMovieHandler1}>Add Movie</button>
+              <button onClick={addMovieHandler1}>Add Movie</button>
             </div>
             {
                 visible && <ModalDialog title={modalComponent.title} onClose={() => setvisible(false)}>

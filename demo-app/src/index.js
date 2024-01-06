@@ -10,16 +10,27 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import MovieDetails from './components/movie-details/MovieDetails';
 import SearchForm from './components/search-form/SearchForm';
+import AddMovieForm from './components/add-movie-form/AddMovieForm';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <SearchForm />,
+    children: [
+      {
+        path: "new",
+        element: <AddMovieForm />
+      },
+      {
+        path: ":movieId/edit",
+        element: <AddMovieForm />
+      }
+    ]
   },
   {
     path: "/:movieId",
-    element: <MovieDetails />,
+    element: <MovieDetails />
   },
 
 ]);
@@ -28,7 +39,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
-    {/* <App /> */}
   </React.StrictMode>
 );
 

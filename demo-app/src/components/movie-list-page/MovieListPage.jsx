@@ -8,10 +8,11 @@ import DeleteMovie from '../delete-movie/DeleteMovie';
 import MovieForm from '../movie-form/MovieForm';
 import ModalDialog from '../modal-dialog/ModalDialog';
 import axios from 'axios';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const controller = new AbortController();
 const MovieListPage = ({ searchQuery }) => {
+    const navigate = useNavigate();
     // const [searchQuery, setSearchQuery] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
     const [movieList, setMovieList] = useState([]);
@@ -112,11 +113,21 @@ const MovieListPage = ({ searchQuery }) => {
 
 
     const editMovieHandler = (activeMovie) => {
-        setModalComponent({
-            title: 'EDIT MOVIE',
-            children: <MovieForm initialMovieInfo={activeMovie} onSubmit={handleFormSubmit} />
-        })
-        setvisible(true);
+        const currentSearchParams = new URLSearchParams(searchParams);
+
+        // Append the existing query parameters to the navigation URL
+        const queryParams = currentSearchParams.toString();
+        if (queryParams) {
+            navigate(`/${activeMovie.id}/edit?${queryParams}`);
+        } else {
+            navigate(`/${activeMovie.id}/edit`);
+        }
+        // setModalComponent({
+        //     title: 'EDIT MOVIE',
+        //     children: <MovieForm initialMovieInfo={activeMovie} onSubmit={handleFormSubmit} />
+        // })
+        // setvisible(true);
+
     };
 
 
@@ -163,7 +174,7 @@ const MovieListPage = ({ searchQuery }) => {
             <GenreSelect genres={genres} selectedGenre={selectedGenre} onSelect={handleGenreSelect} />
             <SortControl currentSelection={sortCriterion} onSortChange={handleSetSortCriterion} />
             {movieList?.length > 0 && <MovieList movies={movieList} editMovieHandler={editMovieHandler} deleteMovieHandler={deleteMovieHandler} handleSelectedMovie={handleSelectedMovie} />}
-            {movieList?.length == 0 && <div class="no-data">No Data Found</div>}
+            {movieList?.length == 0 && <div className="no-data">No Data Found</div>}
 
         </div>
     )
