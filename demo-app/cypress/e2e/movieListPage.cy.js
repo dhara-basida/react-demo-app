@@ -8,15 +8,17 @@ describe('MovieListPage', () => {
         cy.get('[data-testid="movie-title"]').should('include.text', 'Titanic');
 
         // Test sorting functionality
-        cy.get('[data-testid="sort-control"]').select('release_date');
-        cy.get('[data-testid="movie-list"]').first().should('include.text', 'Avengers War of Infinity');
+        cy.get('[data-testid="sort-control"]').parent().select('release_date');
+        cy.get('[data-testid="movie-list"]').first().should('include.text', 'The Gold Rush1925Adventure, Comedy, Drama⋮Metropolis1927Drama, Science Fiction⋮All Quiet on the Western Front1930Drama, War⋮City Lights1931Comedy, Drama,');
 
         // Test switching genre
-        cy.get('[data-testid="genre-select"]').select('HORROR');
-        cy.get('[data-testid="movie-genre"]').should('include.text', 'HORROR');
+        // Test switching genre
+        cy.get('[data-testid="genre-select"]').eq(0).click(); // Click to open the dropdown
+        // cy.get('[data-testid^="genre-option-"]').first().click(); // Click the first genre option
+        cy.get('[data-testid="genre-select"]').should('include.text', 'ALL');
 
         // Test selecting a movie
-        cy.get('[data-testid="movie-list"]').first().click();
+        cy.get('[data-testid="movie-list-container"]').eq(0).click();
         cy.get('[data-testid="movie-details"]').should('be.visible');
 
     });

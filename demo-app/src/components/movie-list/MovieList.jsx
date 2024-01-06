@@ -9,7 +9,7 @@ function MovieList(props) {
 
 
   return (
-    <div className="movie-list-container">
+    <div className="movie-list-container" data-testid="movie-list">
       <div className="movie-container">
         {movies.map((movie) => (
           <MovieTile

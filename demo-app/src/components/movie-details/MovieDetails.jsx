@@ -8,7 +8,7 @@ const MovieDetails = ({ movieDetailInfo ,handleSelectedMovie,closeMovieDetails})
   const { imageUrl, name, releaseYear, rating, duration, description } = movieDetailInfo;
 
   return (
-    <div className="movie-details-container" >
+    <div className="movie-details-container" data-testid="movie-details">
       <div className="movie-header">
         <p>Netflix</p>
         <img src="search-button.svg" onClick={() => closeMovieDetails()}/></div>

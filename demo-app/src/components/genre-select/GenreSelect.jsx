@@ -7,7 +7,7 @@ function GenreSelect({ genres, selectedGenre, onSelect }) {
       <ul className="genre-container">
         {genres.map((genre) => (
           <li key={genre}>
-            <button
+            <button data-testid="genre-select"
               className={genre === selectedGenre ? 'selected-button' : 'genre-button'}
               onClick={() => onSelect(genre)}>
               {genre}
