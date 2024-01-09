@@ -15,7 +15,7 @@ const SortControl = ({ currentSelection, onSortChange }) => {
                 value={currentSelection}
                 onChange={handleSortChange}
             >
-                <option value="releaseDate">Release Date</option>
+                <option value="release_date" data-testid="sort-control">Release Date</option>
                 <option value="title">Title</option>
             </select>
         </div>

@@ -8,6 +8,7 @@ import MovieList from './MovieList';
 describe('MovieList', () => {
     const movies = [
         {
+            id: 1,
             imageUrl: 'https://picsum.photos/seed/picsum/200/300',
             name: 'Universe',
             releaseYear: 2022,
@@ -18,6 +19,7 @@ describe('MovieList', () => {
             description: 'It was a dramatic movie'
         },
         {
+            id: 2,
             imageUrl: 'https://picsum.photos/seed/picsum/200/300',
             name: 'Titanic',
             releaseYear: 2000,

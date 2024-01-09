@@ -3,15 +3,15 @@ import { React } from 'react';
 import PropTypes from 'prop-types';
 import './MovieDetails.css';
 
-const MovieDetails = ({ movieDetailInfo }) => {
+const MovieDetails = ({ movieDetailInfo ,handleSelectedMovie,closeMovieDetails}) => {
 
   const { imageUrl, name, releaseYear, rating, duration, description } = movieDetailInfo;
 
   return (
-    <div className="movie-details-container" >
+    <div className="movie-details-container" data-testid="movie-details">
       <div className="movie-header">
         <p>Netflix</p>
-        <p>Search</p></div>
+        <img src="search-button.svg" onClick={() => closeMovieDetails()}/></div>
       {/* {change with picture} */}
       <div className="movie-details-info">
         <img src={imageUrl} alt={name} width='322' height='486' />
