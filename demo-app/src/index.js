@@ -1,13 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import {
+  RouterProvider,
+  createBrowserRouter
+} from "react-router-dom";
 import App from './App';
+import MovieListPage from './components/movie-list-page/MovieListPage';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
+import MovieDetails from './components/movie-details/MovieDetails';
+import SearchForm from './components/search-form/SearchForm';
+import AddMovieForm from './components/add-movie-form/AddMovieForm';
+
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <SearchForm />,
+    children: [
+      {
+        path: "new",
+        element: <AddMovieForm />
+      },
+      {
+        path: ":movieId/edit",
+        element: <AddMovieForm />
+      }
+    ]
+  },
+  {
+    path: "/:movieId",
+    element: <MovieDetails />
+  },
+
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

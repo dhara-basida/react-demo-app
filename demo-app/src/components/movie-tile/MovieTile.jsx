@@ -2,11 +2,24 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import './MovieTile.css';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const MovieTile = ({ movieInfo, onTileClick, onEditClick, onDeleteClick }) => {
+  const navigate = useNavigate();
   const [isContextMenuOpen, setContextMenuOpen] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleTileClick = () => {
+    const currentSearchParams = new URLSearchParams(searchParams);
+
+    // Append the existing query parameters to the navigation URL
+    const queryParams = currentSearchParams.toString();
+    if(queryParams){
+      navigate(`/${movieInfo.id}?${queryParams}`);
+    }else{
+      navigate(`/${movieInfo.id}`);
+    }
+
     onTileClick(movieInfo);
   };
 
@@ -21,6 +34,7 @@ const MovieTile = ({ movieInfo, onTileClick, onEditClick, onDeleteClick }) => {
 
 
   const toggleContextMenu = (e) => {
+    e.stopPropagation();
     e.preventDefault();
     setContextMenuOpen(!isContextMenuOpen);
   };
@@ -49,7 +63,7 @@ const MovieTile = ({ movieInfo, onTileClick, onEditClick, onDeleteClick }) => {
   const { imageUrl, name, releaseYear, genres } = movieInfo;
 
   return (
-    <div className="container" onClick={handleTileClick} data-testid="movie-list-container">
+    <div className="container" data-testid="movie-list-container">
       <div className="container" onClick={handleTileClick}>
         <div className="movie-info">
           <div className="movie-image">

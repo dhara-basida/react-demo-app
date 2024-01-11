@@ -8,28 +8,31 @@ import DeleteMovie from '../delete-movie/DeleteMovie';
 import MovieForm from '../movie-form/MovieForm';
 import ModalDialog from '../modal-dialog/ModalDialog';
 import axios from 'axios';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const controller = new AbortController();
-const MovieListPage = () => {
-    const [searchQuery, setSearchQuery] = useState('');
+const MovieListPage = ({ searchQuery }) => {
+    const navigate = useNavigate();
+    // const [searchQuery, setSearchQuery] = useState('');
+    const [searchParams, setSearchParams] = useSearchParams();
     const [movieList, setMovieList] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
-    const [sortCriterion, setSortCriterion] = useState('release_date');
+    const [sortCriterion, setSortCriterion] = useState(searchParams.get('sort') ? searchParams.get('sort') : 'release_date');
     const [activeGenre, setActiveGenre] = useState(null);
 
     const [visible, setvisible] = useState(false);
-    const [selectedGenre, setSelectedGenre] = useState('ALL');
+    const [selectedGenre, setSelectedGenre] = useState(searchParams.get('genre') ? searchParams.get('genre') : 'ALL');
     const [modalComponent, setModalComponent] = useState({ title: '', children: null });
-   
+
     useEffect(() => {
-       getMovies();
+        getMovies();
     }, [sortCriterion, searchQuery, selectedGenre]);
 
     const getMovies = () => {
         const params = {
             sortBy: sortCriterion,
             sortOrder: 'asc',
-            search:searchQuery,
+            search: searchQuery,
             searchBy: 'title',
             filter: selectedGenre == 'ALL' ? '' : selectedGenre,
             offset: 0,
@@ -56,7 +59,7 @@ const MovieListPage = () => {
                             genres: genres,
                             runtime: runtime,
                             description: description,
-                            id:movie?.id
+                            id: movie?.id
                         };
                         return preparedObject;
                     });
@@ -76,11 +79,15 @@ const MovieListPage = () => {
     }
 
     const handleSearchSubmit = (query) => {
-        setSearchQuery(query);
+        // setSearchQuery(query);
     };
+
 
     const handleGenreSelect = (genre) => {
         setSelectedGenre(genre);
+        const currentSearchParams = new URLSearchParams(searchParams);
+        currentSearchParams.set('genre', genre);
+        setSearchParams(currentSearchParams);
     };
 
     const addMovieHandler1 = () => {
@@ -89,56 +96,11 @@ const MovieListPage = () => {
     };
 
     const handleSetSortCriterion = (sort) => {
+        const currentSearchParams = new URLSearchParams(searchParams);
         setSortCriterion(sort);
+        currentSearchParams.set('sort', sort);
+        setSearchParams(currentSearchParams);
     }
-
-    const movieInfo = {
-        imageUrl: 'image/Pulp Fiction.png',
-        name: 'Pulp Fiction',
-        releaseYear: 2024,
-        releaseDate: '2000-05-23',
-        rating: 4,
-        genres: ['DOCUMENTARY', 'COMEDY'],
-        runtime: '3h 30m',
-        description: 'It was really a nice movie'
-    };
-
-    const movieInfo2 = {
-        imageUrl: 'image/Bohemian Rhapsody.png',
-        name: 'Bohemian Rhapsody',
-        releaseYear: 2023,
-        releaseDate: '2023-11-10',
-        rating: 5,
-        genres: ['DOCUMENTARY', 'HORROR'],
-        runtime: '4h 30m',
-        description: 'It was a dramatic movie'
-    };
-
-    const movieInfo3 = {
-        imageUrl: 'image/Kill Bill Vol2.png',
-        name: 'Kill Bill: Vol2',
-        releaseYear: 1994,
-        releaseDate: '2000-05-23',
-        rating: 4,
-        genres: ['DOCUMENTARY', 'COMEDY'],
-        runtime: '3h 30m',
-        description: 'It was really a nice movie'
-    };
-
-    const movieInfo4 = {
-        imageUrl: 'image/Avengers War of Infinity.png',
-        name: 'Avengers: War of Infinity',
-        releaseYear: 2024,
-        releaseDate: '2023-11-10',
-        rating: 5,
-        genres: ['DOCUMENTARY', 'HORROR'],
-        runtime: '4h 30m',
-        description: 'It was a dramatic movie'
-    };
-
-    const movies = [
-        movieInfo, movieInfo2, movieInfo3, movieInfo4
-    ];
 
     const closeDialog = () => {
         setSelectedMovie(null);
@@ -151,11 +113,21 @@ const MovieListPage = () => {
 
 
     const editMovieHandler = (activeMovie) => {
-        setModalComponent({
-            title: 'EDIT MOVIE',
-            children: <MovieForm initialMovieInfo={activeMovie} onSubmit={handleFormSubmit} />
-        })
-        setvisible(true);
+        const currentSearchParams = new URLSearchParams(searchParams);
+
+        // Append the existing query parameters to the navigation URL
+        const queryParams = currentSearchParams.toString();
+        if (queryParams) {
+            navigate(`/${activeMovie.id}/edit?${queryParams}`);
+        } else {
+            navigate(`/${activeMovie.id}/edit`);
+        }
+        // setModalComponent({
+        //     title: 'EDIT MOVIE',
+        //     children: <MovieForm initialMovieInfo={activeMovie} onSubmit={handleFormSubmit} />
+        // })
+        // setvisible(true);
+
     };
 
 
@@ -183,9 +155,9 @@ const MovieListPage = () => {
     return (
         <div>
 
-            <div>
+            {/* <div>
                 <button onClick={addMovieHandler1}>Add Movie</button>
-            </div>
+            </div> */}
 
             {
                 visible && <ModalDialog title={modalComponent.title} onClose={() => setvisible(false)}>
@@ -193,16 +165,16 @@ const MovieListPage = () => {
                 </ModalDialog>
             }
             {/* If movie is not selected than show search bar */}
-            {!selectedMovie && <SearchForm initialSearchQuery={searchQuery} onSearch={handleSearchSubmit} />}
+            {/* {!selectedMovie && <SearchForm initialSearchQuery={searchQuery} onSearch={handleSearchSubmit} />}
 
             <div>
                 {selectedMovie && <MovieDetails movieDetailInfo={selectedMovie} handleSelectedMovie={handleSelectedMovie} closeMovieDetails={closeMovieDetails} />}
-            </div>
+            </div> */}
 
             <GenreSelect genres={genres} selectedGenre={selectedGenre} onSelect={handleGenreSelect} />
             <SortControl currentSelection={sortCriterion} onSortChange={handleSetSortCriterion} />
-            <MovieList movies={movieList} editMovieHandler={editMovieHandler} deleteMovieHandler={deleteMovieHandler} handleSelectedMovie={handleSelectedMovie} />
-
+            {movieList?.length > 0 && <MovieList movies={movieList} editMovieHandler={editMovieHandler} deleteMovieHandler={deleteMovieHandler} handleSelectedMovie={handleSelectedMovie} />}
+            {movieList?.length == 0 && <div className="no-data">No Data Found</div>}
 
         </div>
     )

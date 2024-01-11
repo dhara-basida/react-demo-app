@@ -4,6 +4,13 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import MovieList from './MovieList';
+import * as router from 'react-router'
+
+const navigate = jest.fn();
+beforeEach(() => {
+  jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
+  jest.spyOn(router,'useLocation').mockImplementation(() => navigate);
+});
 
 describe('MovieList', () => {
     const movies = [
