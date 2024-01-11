@@ -27,7 +27,7 @@ const ModalDialog = ({ title, children, onClose }) => {
             <div data-testid="dialog-overlay" className="dialog-overlay" onClick={onClose}>
                 <div className="dialog-content" onClick={(e) => e.stopPropagation()}>
                     <div className="dialog-header">
-                        <img src="image/Close-Button.svg" className="close-button" alt="close" onClick={onClose} />
+                        <img src="/image/Close-Button.svg" className="close-button" alt="close" onClick={onClose} />
                         <div className="dialog-title">{title}</div>
                     </div>
                     <div className="dialog-body">{children}</div>

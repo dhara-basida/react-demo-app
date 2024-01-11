@@ -64,7 +64,7 @@ const MovieDetails = () => {
       <div className="movie-details-container" data-testid="movie-details">
         <div className="movie-header">
           <p>Netflix</p>
-          <img src="/image/Close-Button.svg" className="close-button" onClick={() => {
+          <img src="search-button.svg" className="close-button" onClick={() => {
             const currentSearchParams = new URLSearchParams(searchParams);
             // Append the existing query parameters to the navigation URL
             const queryParams = currentSearchParams.toString();
