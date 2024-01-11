@@ -3,6 +3,13 @@ import { render, fireEvent, waitFor, screen, act } from '@testing-library/react'
 import '@testing-library/jest-dom';
 import axios from 'axios';
 import MovieListPage from './MovieListPage';
+import * as router from 'react-router'
+
+const navigate = jest.fn();
+beforeEach(() => {
+  jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
+  jest.spyOn(router,'useLocation').mockImplementation(() => navigate);
+});
 
 jest.mock('axios');
 

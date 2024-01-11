@@ -29,6 +29,7 @@ const MovieDetails = () => {
     controller.abort();
     axios.get(`http://localhost:4000/movies/${movieId}`)
       .then(function (response) {
+        response = response?.data;
         if (response) {
           const imageUrl = response.poster_path;
           const name = response.title;
@@ -63,13 +64,13 @@ const MovieDetails = () => {
       <div className="movie-details-container" data-testid="movie-details">
         <div className="movie-header">
           <p>Netflix</p>
-          <img src="search-button.svg" onClick={() => {
+          <img src="/image/Close-Button.svg" className="close-button" onClick={() => {
             const currentSearchParams = new URLSearchParams(searchParams);
             // Append the existing query parameters to the navigation URL
             const queryParams = currentSearchParams.toString();
-            if(queryParams){
+            if (queryParams) {
               navigate(`/?${queryParams}`);
-            }else{
+            } else {
               navigate(`/`);
             }
           }} /></div>

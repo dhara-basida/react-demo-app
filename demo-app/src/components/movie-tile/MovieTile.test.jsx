@@ -2,7 +2,13 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import MovieTile from './MovieTile';
+import * as router from 'react-router'
 
+const navigate = jest.fn();
+beforeEach(() => {
+  jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
+  jest.spyOn(router,'useLocation').mockImplementation(() => navigate);
+});
 const sampleMovie = {
   imageUrl: 'http://google.com/picture/1',
   name: 'Sample Movie',
